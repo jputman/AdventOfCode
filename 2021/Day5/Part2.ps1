@@ -3,36 +3,29 @@ $data = Get-Content '.\Data.txt'
 $lines = @()
 $count = 0
 
+function getChange($int1, $int2){
+  if($int1 -gt $int2){
+    $intadd = -1
+    $intchange = $int1 - $int2
+  }
+  elseif($int1 -eq $int2){
+    $intadd = 0
+    $intchange = 0
+  }
+  else{
+    $intadd = 1
+    $intchange = $int2 - $int1
+  }
+  return $intadd, $intchange
+}
+
 foreach($line in $data){
   $split = $line -split ' -> '
   [int]$x1,[int]$y1 = $split[0].Split(',')
   [int]$x2,[int]$y2 = $split[1].Split(',')
   
-  if($x1 -gt $x2){
-    $xadd = -1
-    $xchange = $x1 - $x2
-  }
-  elseif($x1 -eq $x2){
-    $xadd = 0
-    $xchange = 0
-  }
-  else{
-    $xadd = 1
-    $xchange = $x2 - $x1
-  }
-
-  if($y1 -gt $y2){
-    $yadd = -1
-    $ychange = $y1 - $y2
-  }
-  elseif($y1 -eq $y2){
-    $yadd = 0
-    $ychange = 0  
-  }
-  else{
-    $yadd = 1
-    $ychange = $y2 - $y1
-  }
+  $xadd, $xchange = getChange -int1 $x1 -int2 $x2
+  $yadd, $ychange = getChange -int1 $y1 -int2 $y2
 
   if($xchange -gt $ychange){
     $loop = $xchange
