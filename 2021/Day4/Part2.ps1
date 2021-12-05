@@ -1,5 +1,4 @@
 Clear-Host
-Write-Host '----------------------------------------------' -ForegroundColor 'Yellow'
 $data = Get-Content '.\Data.txt'
 $numbers = $data[0].split(',')
 $boards =  [System.Collections.ArrayList]@()
