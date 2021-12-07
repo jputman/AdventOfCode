@@ -2,7 +2,7 @@ Clear-Host
 #Write-Host '------------------------------- Script Starting -------------------------------' -ForegroundColor Blue
 $data = Get-Content '.\Data.txt'
 $fishes = $data -split ','
-$days = 80
+$days = 256
 
 
 $SchoolofFish = [PSCustomObject]@{
