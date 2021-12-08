@@ -1,5 +1,5 @@
 Clear-Host
-$data = Get-Content '.\Data.txt'
+$data = Get-Content '..\Day5\SampleData.txt'
 $lines = @()
 $count = 0
 
