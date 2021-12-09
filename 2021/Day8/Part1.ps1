@@ -1,6 +1,6 @@
 Clear-Host
 Write-Host '----------------------------------------- Start Script -----------------------------------------' -ForegroundColor Blue
-$data = Get-Content '.\Data.txt'
+$data = Get-Content '.\SampleData.txt'
 $lines = @()
 
 
@@ -18,4 +18,4 @@ $uniqueOptions = @(2,4,3,7)
 (($lines.Lit | Group-Object | Where-Object {$_.Name -in $uniqueOptions}).Group).Count
 
 
-Write-Host '------------------------------------------ End Script ------------------------------------------' -ForegroundColor Blue
+Write-Host '----------------------------------------- End Script -----------------------------------------' -ForegroundColor Blue
