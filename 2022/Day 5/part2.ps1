@@ -45,19 +45,12 @@ foreach($instruction in $instructions){
   $count = $line[1]
   $from = $line[3] - 1
   $to = $line[5] - 1
-  if("move $($count) from $($from) to $($to)" -eq "move 5 from 8 to 1"){
-    "Hello"
-  }  
   $toMove = [System.Collections.ArrayList]::new()
-  
   for($i = 0; $i -lt $count; $i++){
     $item = $stack[$from][-1]
     $stack[$from].RemoveAt($stack[$from].count - 1)
     $toMove.Add($item) | Out-Null
   }  
-  if("move $($count) from $($from) to $($to)" -eq "move 5 from 8 to 1"){
-    "Hello"
-  }    
   for($j = $toMove.Count -1; $j -ge 0; $j--){
     $stack[$to].Add($toMove[$j]) | Out-Null
   }
@@ -67,6 +60,6 @@ foreach($instruction in $instructions){
 }
 $answer = ""
 for($i = 0; $i -lt $stack.Count; $i++){
-  $answer += $stack[$i][-1]
+  $stack[$i][-1]
 }
 $answer
