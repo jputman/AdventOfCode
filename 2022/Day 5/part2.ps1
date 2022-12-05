@@ -58,8 +58,6 @@ foreach($instruction in $instructions){
   #DisplayStack $stack  
   #break
 }
-$answer = ""
 for($i = 0; $i -lt $stack.Count; $i++){
   $stack[$i][-1]
 }
-$answer
