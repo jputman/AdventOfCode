@@ -8,7 +8,7 @@ function DisplayStack($stack){
     $message = $null
     for($i = 0; $i -lt $stack.Count; $i++){
       if($stack[$i][$count]){
-        $message += "$mesage $($stack[$i][$count]) "
+        $message = "$mesage $($stack[$i][$count]) "
         $isEmpty = $false
       }
       else{
