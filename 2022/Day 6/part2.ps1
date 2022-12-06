@@ -1,5 +1,4 @@
 Clear-Host
-Measure-Command {
 $dataInput = Get-Content 'D:\Git Repos\Personal\AdventOfCode\2022\Day 6\input.txt'
 #$dataInput = Get-Content 'D:\Git Repos\Personal\AdventOfCode\2022\Day 6\example.txt'
 for($i = 0;$i -lt $dataInput.length - 13; $i++){
@@ -11,4 +10,3 @@ for($i = 0;$i -lt $dataInput.length - 13; $i++){
   if($isMarker){break}
 }
 $i + 14
-}
