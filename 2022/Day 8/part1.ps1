@@ -21,26 +21,39 @@ for($r = 0; $r -lt $dataInput.Count; $r++){
 }
 for($r = 1; $r -lt $forest.Count - 1; $r++){
   for($c = 1; $c -lt $forest[$r].Count -1; $c++){
-    $left = $forest[$r][0..($c - 1)]
-    $right = $forest[$r][($c + 1)..$forest[$r].Count]
-    $up = [System.Collections.ArrayList]::new()
-    $down = [System.Collections.ArrayList]::new()
-    for($i = 0; $i -lt $r; $i++){
-      $up.Add($forest[$i][$c]) | Out-Null
+    $tree = $forest[$r][$c]
+    $seenUP = $true
+    $seenDown = $true
+    $seenLeft = $true
+    $seenRight = $true
+    #Write-Host "Looking at $r x $c value of $tree" -ForegroundColor Blue
+    for($up = ($r - 1); $up -ge 0; $up--){
+      if($forest[$up][$c] -ge $tree){
+        $seenUP = $false
+        break
+      }
     }
-    for($i = ($r + 1); $i -lt $forest.Count; $i++){
-      $down.Add($forest[$i][$c]) | Out-Null
-    }    
-    $checkLeft = $left | where-object {$_ -lt $forest[$r][$c]}
-    $checkRight = $right | where-object {$_ -lt $forest[$r][$c]}
-    $checkUp = $up | where-object {$_ -lt $forest[$r][$c]}
-    $checkDown = $down | where-object {$_ -lt $forest[$r][$c]}
-    $seen = $false
-    if($checkLeft.Count -eq $left.Count){$seen = $true}
-    if($checkRight.Count -eq $right.Count){$seen = $true}
-    if($checkUp.Count -eq $up.Count){$seen = $true}
-    if($checkDown.Count -eq $down.Count){$seen = $true}
-    $forestSeen[$r][$c] = $seen
+    for($down = ($r+1); $down -lt $forest.Count; $down++){
+      if($forest[$down][$c] -ge $tree){
+        $seenDown = $false
+        break
+      }      
+    }
+    for($left = ($c - 1); $left -ge 0;$left--){
+      if($forest[$r][$left] -ge $tree){
+        $seenLeft = $false
+        break        
+      }
+    }
+    for($right = ($c+1);$right -lt $forest[$r].Count; $right++){
+      if($forest[$r][$right] -ge $tree){
+        $seenRight = $false
+        break        
+      }      
+    }
+    if($seenUP -or $seenDown -or $seenLeft -or $seenRight){
+      $forestSeen[$r][$c] = $true
+    }
   }
 }
 
@@ -52,6 +65,6 @@ for($r = 0; $r -lt $forest.Count; $r++){
     }
   }
 }
-$count
+$count 
 $EndMS = (Get-Date)
 $EndMS - $StartMS

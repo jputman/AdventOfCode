@@ -8,7 +8,7 @@ for($r = 0; $r -lt $dataInput.Count; $r++){
   $seen = [System.Collections.ArrayList]::new()
   for($c = 0; $c -lt $dataInput[$r].Length; $c++){
     $line.Add(([int]$dataInput[$r][$c] - 48)) | Out-Null
-    $seen.Add(0) | Out-Null
+    $seen.Add(1) | Out-Null
   }
   $forest.Add($line) | Out-Null
   $forestSeen.Add($seen) | Out-Null
@@ -49,8 +49,7 @@ for($r = 0; $r -lt $forest.Count; $r++){
       }
     }
     foreach($v in ($view | Where-Object {$_ -gt 0})){
-      if($forestSeen[$r][$c] -eq 0){$forestSeen[$r][$c] = $v}
-      else{$forestSeen[$r][$c] *= $v}
+      $forestSeen[$r][$c] *= $v
     }
   }
 }
@@ -61,5 +60,5 @@ for($r = 1; $r -lt $forest.Count - 1; $r++){
   }
 }
 $highest
-$EndMS = (Get-Date)
-$EndMS - $StartMS
+#$EndMS = (Get-Date)
+#$EndMS - $StartMS
