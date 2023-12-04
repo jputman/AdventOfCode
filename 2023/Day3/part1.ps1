@@ -14,16 +14,17 @@ function lookup{
       $sum = $sum + $item.Value
     }
   }
+  
   return $sum
 }
 
 $totalCount = 0
 for($i = 0; $i -le $data.Length; $i++){
   if($i -eq 0){$previousLine = $null}
-  else{$previousLine = [regex]::Matches($data[$i - 1],"\d{0,2}[^\.]")}
-  if($i -eq $data.Length){$nextLine = $null}
-  else{$nextLine = [regex]::Matches($data[$i + 1],"\d{0,2}[^\.]")}
-  $line = [regex]::Matches($data[$i],"\d{0,2}[^\.]")
+  else{$previousLine = [regex]::Matches($data[$i - 1],"\d+|[^\.]")}
+  if($i -eq $data.Length - 1){$nextLine = $null}
+  else{$nextLine = [regex]::Matches($data[$i + 1],"\d+|[^\.]")}
+  $line = [regex]::Matches($data[$i],"\d+|[^\.]")
   $symbols = $line | Where-Object {$_.Value -notmatch "[0-9]"}
   $prev = $previousLine | Where-Object {$_.Value -match "[0-9]"}
   $cur = $line | Where-Object {$_.Value -match "[0-9]"}
