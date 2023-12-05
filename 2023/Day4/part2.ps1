@@ -24,7 +24,7 @@ for($i = 1; $i -le $data.Count; $i++){
   $sections = ($data[$i - 1] -split ":")[1] -split "\|"
   $cards = [REGEX]::Matches($sections[0],"\d+")
   $winners = [REGEX]::Matches($sections[1],"\d+") 
-  "Card $($i): $($cardCount.$i)"
+  #"Card $($i): $($cardCount.$i)"
   $win = Get-Matches -cards $cards -winners $winners
   for($x = 1; $x -le $win; $x++){
     $card = $i + $x
