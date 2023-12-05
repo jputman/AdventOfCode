@@ -16,6 +16,25 @@ function Get-Matches{
   }
   return $count
 }
+
+$cardCount = @{}
+for($i = 1; $i -le $data.Count; $i++){
+  if(!$cardCount.ContainsKey($i)){$cardCount.$i = 1}
+  else{$cardCount.$i += 1}  
+  $sections = ($data[$i - 1] -split ":")[1] -split "\|"
+  $cards = [REGEX]::Matches($sections[0],"\d+")
+  $winners = [REGEX]::Matches($sections[1],"\d+") 
+  "Card $($i): $($cardCount.$i)"
+  $win = Get-Matches -cards $cards -winners $winners
+  for($x = 1; $x -le $win; $x++){
+    $card = $i + $x
+    if($card -gt $data.count){break}
+    if(!$cardCount.ContainsKey($card)){$cardCount.$card = $cardCount.$i}
+    else{$cardCount.$card += $cardCount.$i}
+  }
+}
+$cardCount.Values | Measure-Object -Sum
+<#
 $cardCount = @{}
 for($i = 1; $i -le $data.Count; $i++){
   if(!$cardCount.ContainsKey($i)){
@@ -43,3 +62,4 @@ for($i = 1; $i -le $data.Count; $i++){
   
 }
 $cardCount.Values | Measure-Object -Sum
+#>
